@@ -1,28 +1,52 @@
 import "./styles.css";
 import { useReducer } from "react";
+import Slider from "./Slider";
 
 export default function App() {
-  const [counter, dispatch] = useReducer(reducer, 0);
+  const [state, dispatch] = useReducer(reducer, {
+    counter: 0,
+    step: 1
+  });
 
   function reducer(state, action) {
-    switch (action) {
+    switch (action.type) {
       case "increment":
-        return state + 1;
+        return { ...state, counter: state.counter + state.step };
       case "decrement":
-        return state - 1;
+        return { ...state, counter: state.counter - state.step };
       case "reset":
-        return 0;
+        return { ...state, counter: 0 };
+      case "updateStep":
+        return { ...state, step: action.step };
       default:
-        return state;
+        return { ...state };
     }
   }
 
+  const onChange = (value) => {
+    dispatch({ type: "updateStep", step: value });
+  };
+
   return (
     <div className="App">
-      <h1>{counter}</h1>
-      <input type="button" onClick={(e) => dispatch("increment")} value="+" />
-      <input type="button" onClick={(e) => dispatch("decrement")} value="-" />
-      <input type="button" onClick={(e) => dispatch("reset")} value="reset" />
+      <h1>{state.counter}</h1>
+      <input
+        type="button"
+        onClick={(e) => dispatch({ type: "increment" })}
+        value="+"
+      />
+      <input
+        type="button"
+        onClick={(e) => dispatch({ type: "decrement" })}
+        value="-"
+      />
+      <input
+        type="button"
+        onClick={(e) => dispatch({ type: "reset" })}
+        value="reset"
+      />
+      <hr />
+      <Slider onChange={onChange} />
     </div>
   );
 }
