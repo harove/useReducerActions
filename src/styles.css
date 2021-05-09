@@ -1,0 +1,8 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.App input {
+  border: solid 3px greenyellow;
+}
