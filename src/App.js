@@ -10,6 +10,8 @@ export default function App() {
         return state + 1;
       case "decrement":
         return state - 1;
+      case "reset":
+        return 0;
       default:
         return state;
     }
@@ -20,11 +22,7 @@ export default function App() {
       <h1>{counter}</h1>
       <input type="button" onClick={(e) => dispatch("increment")} value="+" />
       <input type="button" onClick={(e) => dispatch("decrement")} value="-" />
-      <input
-        type="button"
-        onClick={(e) => dispatch("decrement")}
-        value="reset"
-      />
+      <input type="button" onClick={(e) => dispatch("reset")} value="reset" />
     </div>
   );
 }
